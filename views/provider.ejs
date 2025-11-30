@@ -1,235 +1,284 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>EcoCompute — Provider Dashboard</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoCompute — Provider Dashboard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-        :root {
-            --cream: #f4e8d0;
-            --bg-navy: #1a1d3a;
-            --cyan: #5ce1e6;
-            --pink-red: #ff6b7a;
-            --purple: #8b7fc7;
-        }
+    :root{
+      --cream:#f4e8d0;
+      --bg-navy:#1a1d3a;
+      --cyan:#5ce1e6;
+      --pink-red:#ff6b7a;
+      --purple:#8b7fc7;
+      --max-width:1100px;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
+    *{ box-sizing:border-box; margin:0; padding:0; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
-        body {
-            font-family: 'Press Start 2P', cursive;
-            background: var(--cream);
-            color: var(--bg-navy);
-            padding: 18px
-        }
+    body{
+      font-family:'Press Start 2P', cursive;
+      background:var(--cream);
+      color:var(--bg-navy);
+      padding:18px;
+      min-height:100vh;
+    }
 
-        .header {
-            background: var(--bg-navy);
-            color: var(--cream);
-            padding: 16px;
-            border-bottom: 4px solid var(--purple);
-            margin-bottom: 12px
-        }
+    .header{
+      background:var(--bg-navy);
+      color:var(--cream);
+      padding:14px;
+      border-bottom:4px solid var(--purple);
+      margin-bottom:12px;
+      border-radius:6px;
+    }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto
-        }
+    .header-inner{
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
 
-        .card {
-            background: white;
-            border: 4px solid var(--purple);
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 8px 8px 0 var(--cyan)
-        }
+    .brand { font-size:15px; white-space:nowrap; }
+    .muted { font-size:12px; color:rgba(255,255,255,0.85); opacity:0.9; white-space:nowrap; }
 
-        .row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap
-        }
+    /* right side wrapper */
+    .header-right{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      min-width:0;
+    }
 
-        .muted {
-            font-size: 11px;
-            color: rgba(26, 29, 58, 0.7)
-        }
+    /* points panel styles */
+    #pointsPanel{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    #pointsPanel .label{ font-size:12px; color:var(--cream); white-space:nowrap; }
+    #pointsTotal{ font-weight:700; font-family:monospace; color:var(--cyan); background:transparent; padding:2px 6px; border-radius:4px; white-space:nowrap; }
+    #claimBtn{ padding:6px 10px; font-size:11px; border:4px solid var(--purple); background:var(--pink-red); color:var(--cream); cursor:pointer; }
 
-        button {
-            cursor: pointer;
-            padding: 10px 14px;
-            border: 4px solid var(--purple);
-            background: var(--pink-red);
-            color: var(--cream)
-        }
+    .container{ max-width:var(--max-width); margin:0 auto; }
 
-        .btn-neutral {
-            background: var(--cyan);
-            color: var(--bg-navy)
-        }
+    .card{
+      background:white;
+      border:4px solid var(--purple);
+      padding:16px;
+      margin-bottom:12px;
+      box-shadow:8px 8px 0 var(--cyan);
+      border-radius:6px;
+      overflow:hidden;
+    }
 
-        .small {
-            font-size: 12px
-        }
+    .row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .small{ font-size:12px; color:var(--bg-navy); }
+    pre.log{
+      height:160px;
+      overflow:auto;
+      background:#071018;
+      color:#bfe;
+      padding:10px;
+      border-radius:6px;
+      font-family:monospace;
+      font-size:12px;
+      line-height:1.3;
+    }
 
-        pre.log {
-            height: 160px;
-            overflow: auto;
-            background: #111;
-            color: #bfe;
-            padding: 8px;
-            border-radius: 6px
-        }
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+      gap:12px;
+      margin-top:8px;
+    }
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin-top: 8px
-        }
+    .stat{
+      background:var(--cream);
+      border:3px solid var(--cyan);
+      padding:10px;
+      border-radius:6px;
+      min-width:0;
+    }
 
-        .stat {
-            background: var(--cream);
-            border: 3px solid var(--cyan);
-            padding: 10px
-        }
+    .stat .label{ font-size:11px; color:var(--bg-navy); opacity:.8; text-transform:uppercase; margin-bottom:6px; }
+    .stat .value{ font-weight:700; font-size:15px; color:var(--bg-navy); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px
-        }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
+      table-layout:auto;
+      min-width:600px; /* allow horizontal scroll on small screens */
+    }
 
-        th,
-        td {
-            padding: 8px;
-            border: 2px solid var(--cyan);
-            font-size: 12px
-        }
+    th, td{
+      padding:8px;
+      border:2px solid var(--cyan);
+      font-size:12px;
+      vertical-align:top;
+    }
 
-        th {
-            background: var(--bg-navy);
-            color: var(--cream)
-        }
+    th{ background:var(--bg-navy); color:var(--cream); text-transform:uppercase; font-size:12px; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:8px; background:var(--cyan); color:var(--bg-navy); font-size:12px; }
 
-        .pill {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 8px;
-            background: var(--cyan);
-            color: var(--bg-navy);
-            font-size: 12px
-        }
-    </style>
+    /* Controls */
+    .controls{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    button{ cursor:pointer; padding:10px 14px; border:4px solid var(--purple); background:var(--pink-red); color:var(--cream); border-radius:6px; font-size:13px; }
+    .btn-neutral{ background:var(--cyan); color:var(--bg-navy); border-radius:6px; padding:10px 14px; border:4px solid var(--purple); }
+
+    /* utility wrappers for responsive scroll */
+    .table-wrap{ overflow:auto; width:100%; border-radius:6px; }
+    .stat-grid-wrap{ flex:1; min-width:220px; }
+
+    /* Responsive rules */
+    @media (max-width: 900px){
+      body{ padding:12px; }
+      .header-inner{ padding:6px 0; gap:8px; }
+      .brand{ font-size:14px; }
+      .muted{ font-size:12px; }
+      #pointsTotal{ font-size:13px; }
+      .stat .value{ font-size:14px; }
+      table{ min-width:520px; }
+    }
+
+    @media (max-width: 640px){
+      .header{ padding:12px; }
+      .container{ padding:0 8px; }
+      .card{ padding:12px; }
+      .stat-grid{ grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); }
+      .stat-grid-wrap{ order:2; width:100%; }
+      .controls{ order:3; width:100%; }
+      .controls button{ width:140px; flex:1; }
+      .row{ flex-direction:column; align-items:flex-start; gap:10px; }
+      pre.log{ height:140px; font-size:12px; }
+      table{ min-width:480px; font-size:12px; }
+    }
+
+    @media (max-width:420px){
+      .header-inner{ gap:6px; }
+      .brand{ font-size:13px; }
+      #claimBtn{ padding:6px 8px; font-size:11px; }
+      .stat .value{ font-size:13px; }
+      pre.log{ height:120px; font-size:11px; }
+      table{ min-width:420px; font-size:11px; }
+      .controls button{ width:100%; }
+      .muted{ font-size:11px; }
+    }
+
+    /* prevent text overflow */
+    *{ word-break:break-word; -webkit-overflow-scrolling:touch; }
+  </style>
 </head>
-
 <body>
-    <div class="header">
-        <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
-            <div>ECOCOMPUTE — Provider</div>
-            <div class="muted">Share idle compute · Local demo</div>
-            <div id="pointsPanel" style="display:flex;gap:12px;align-items:center;">
-                <div style="font-size:12px;color:var(--bg-navy)">Points:</div>
-                <div id="pointsTotal" style="font-weight:700;font-family:monospace">0</div>
-                <button id="claimBtn" class="btn-action" style="font-size:11px;padding:6px 10px">Claim Bonus</button>
-            </div>
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">ECOCOMPUTE — Provider</div>
+
+      <div class="muted" style="flex:1;min-width:0;text-align:center">Share idle compute · Local demo</div>
+
+      <div class="header-right" role="region" aria-label="provider points">
+        <div id="pointsPanel" style="align-items:center">
+          <div class="label">Points:</div>
+          <div id="pointsTotal">0</div>
         </div>
-        <!-- Provider points panel -->
+        <button id="claimBtn" aria-label="claim bonus">Claim Bonus</button>
+      </div>
+    </div>
+  </div>
 
+  <div class="container">
+    <!-- Device & controls -->
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div style="min-width:180px">
+          <div class="small">Device ID</div>
+          <div id="deviceId" style="font-size:14px;word-break:break-all"></div>
+        </div>
 
+        <div class="stat-grid-wrap" style="flex:1;min-width:0">
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="label">Cores</div>
+              <div id="cores" class="value">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">Battery</div>
+              <div id="battery" class="value">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">Charging</div>
+              <div id="charging" class="value">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">Score (bench)</div>
+              <div id="score" class="value">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls" style="justify-self:flex-end">
+          <button id="toggleShare">Start Sharing</button>
+          <button id="runBench" class="btn-neutral">Run Benchmark</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <label class="small">Require charging <input id="requireCharging" type="checkbox" checked></label>
+        <label class="small">Min battery % <input id="minBattery" type="number" value="40" style="width:68px"></label>
+        <div class="muted" style="margin-left:auto">Dispatch loop runs automatically when sharing is ON.</div>
+      </div>
     </div>
 
-    <div class="container">
-        <!-- Device & controls -->
-        <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-                <div>
-                    <div class="small">Device ID</div>
-                    <div id="deviceId" style="font-size:14px"></div>
-                </div>
-
-                <div class="stat-grid" style="flex:1">
-                    <div class="stat">
-                        <div class="small">Cores</div>
-                        <div id="cores" style="font-weight:700"></div>
-                    </div>
-                    <div class="stat">
-                        <div class="small">Battery</div>
-                        <div id="battery" style="font-weight:700"></div>
-                    </div>
-                    <div class="stat">
-                        <div class="small">Charging</div>
-                        <div id="charging" style="font-weight:700"></div>
-                    </div>
-                    <div class="stat">
-                        <div class="small">Score (bench)</div>
-                        <div id="score" style="font-weight:700"></div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:8px">
-                    <button id="toggleShare">Start Sharing</button>
-                    <button id="runBench" class="btn-neutral">Run Benchmark</button>
-                </div>
-            </div>
-
-            <div style="margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                <label class="small">Require charging <input id="requireCharging" type="checkbox" checked></label>
-                <label class="small">Min battery % <input id="minBattery" type="number" value="40"
-                        style="width:68px"></label>
-                <div class="muted">Dispatch loop runs automatically when sharing is ON.</div>
-            </div>
+    <!-- Live stats & jobs -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:14px">Live Stats</div>
+          <div class="muted">Tasks assigned / running / completed</div>
         </div>
 
-        <!-- Live stats & jobs -->
-        <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-                <div>
-                    <div style="font-size:14px">Live Stats</div>
-                    <div class="muted">Tasks assigned / running / completed</div>
-                </div>
-                <div style="display:flex;gap:8px;align-items:center">
-                    <div class="pill" id="assignedCount">Assigned: 0</div>
-                    <div class="pill" id="runningCount">Running: 0</div>
-                    <div class="pill" id="completedCount">Done: 0</div>
-                </div>
-            </div>
-
-            <div style="margin-top:12px">
-                <div style="font-weight:700;margin-bottom:8px">Available jobs (from Requester)</div>
-                <table id="jobsTable">
-                    <thead>
-                        <tr>
-                            <th>Job</th>
-                            <th>Type</th>
-                            <th>Est chunks</th>
-                            <th>Created</th>
-                            <th>Pending</th>
-                        </tr>
-                    </thead>
-                    <tbody id="jobsBody"></tbody>
-                </table>
-            </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="pill" id="assignedCount">Assigned: 0</div>
+          <div class="pill" id="runningCount">Running: 0</div>
+          <div class="pill" id="completedCount">Done: 0</div>
         </div>
+      </div>
 
-        <!-- Logs -->
-        <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-                <div style="font-weight:700">Provider Logs</div>
-                <div class="muted small">Events & assignment history</div>
-            </div>
-            <pre id="log" class="log">Ready.</pre>
+      <div style="margin-top:12px">
+        <div style="font-weight:700;margin-bottom:8px">Available jobs (from Requester)</div>
+
+        <div class="table-wrap">
+          <table id="jobsTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>Job</th>
+                <th>Type</th>
+                <th>Est chunks</th>
+                <th>Created</th>
+                <th>Pending</th>
+              </tr>
+            </thead>
+            <tbody id="jobsBody"></tbody>
+          </table>
         </div>
+      </div>
     </div>
 
-    <script src="provider.js"></script>
+    <!-- Logs -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">Provider Logs</div>
+        <div class="muted small">Events & assignment history</div>
+      </div>
+      <pre id="log" class="log">Ready.</pre>
+    </div>
+  </div>
+
+  <script src="provider.js"></script>
 </body>
-
 </html>
