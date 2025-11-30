@@ -1,204 +1,106 @@
-# 🌱 EcoCompute — Decentralized Browser-Based Compute Network
+# EcoCompute – Decentralized Crowd GPU Network
 
-EcoCompute is a fully browser-powered decentralized computing system where users can share their idle CPU/GPU resources to collaboratively process computational jobs.  
-Instead of relying on centralized servers or expensive cloud GPUs, EcoCompute distributes tasks directly between users — **right inside the browser** using JavaScript, Web Workers, and localStorage.
-
-EcoCompute demonstrates how compute markets like Render, Golem, or BOINC can be simulated in a lightweight, accessible environment without needing backend servers or blockchain infrastructure (yet).
+EcoCompute is a decentralized, community-powered distributed computing platform that transforms the unused processing power of everyday devices — smartphones, laptops, desktops, and GPUs — into a unified, affordable, and sustainable compute network. Instead of relying on expensive centralized GPU data centers, EcoCompute aggregates idle global resources and makes computation accessible for students, researchers, developers, and startups.
 
 ---
 
-# 📘 Introduction
+## Introduction
 
-Modern computational workloads — such as matrix multiplications, image transformations, video processing, and scientific simulations — require substantial processing power. Traditional solutions depend on centralized cloud systems which are expensive and often inaccessible to students, researchers, and small startups.
+Modern applications like AI training, scientific simulations, 3D rendering, and data analytics require massive computational power. However, access to this power is limited, centralized, and often unaffordable through platforms like AWS, Azure, and Google Cloud.
 
-**EcoCompute solves this by enabling distributed computing natively in the browser.**
+Meanwhile, billions of devices across the world are significantly underutilized:
 
-Users can either:
+- Smartphones remain idle for most of the day  
+- Laptops rarely use more than 20–30% of their CPU  
+- Gaming PCs sit unused for long durations  
+- Older computers still have unused compute capacity  
 
-- Become **Recruiters**, submitting computational tasks  
-- Become **Providers**, sharing their CPU power to process micro-tasks  
-
-The system automatically splits a large job into micro-tasks, distributes them across devices, gathers the results, and reconstructs the final output — all with **zero backend**.
-
----
-
-# ⚙️ How EcoCompute Works
-
-EcoCompute follows a simple yet powerful workflow:
-
-### **1. Recruiter Submits a Job**
-Recruiters create computational jobs using:
-- Text or JSON input  
-- File upload  
-- Matrix A & Matrix B (for distributed matrix multiplication)  
-
-They choose:
-- Chunk size  
-- Redundancy  
-- Priority  
-- Budget (optional)  
-
-The job is then **split automatically into microtasks**, stored locally in `localStorage`.
+EcoCompute bridges this gap by converting this idle compute power into a distributed supercomputer that anyone can use.
 
 ---
 
-### **2. Microtask Generation**
-Depending on the job type, EcoCompute creates microtasks such as:
+## How It Works
 
-#### ✔ Array Jobs  
-Split N items → microtasks of size `chunkSize`.
+EcoCompute follows a distributed computing workflow where heavy tasks are split, processed on provider devices, verified, and recombined.
 
-#### ✔ Matrix Multiplication Jobs  
-Break matrix A into rows:
+1. **Task Submission**  
+   Recruiters upload a computational task (ML inference, training, rendering, simulation, etc.).
 
+2. **Task Splitting**  
+   The system breaks the task into small, parallel sub-tasks.
 
-Each provider computes one row of the output matrix.
+3. **Provider Distribution**  
+   Providers offering their device power receive tasks based on capability.
 
----
+4. **Local Computation**  
+   Providers compute the assigned sub-tasks on their local hardware.
 
-### **3. Providers Join the Network**
-Providers see:
-- CPU benchmark score  
-- Battery % + charging condition  
-- Worker pool size  
-- Assigned / Running / Completed tasks  
-- Earned points  
+5. **Result Verification**  
+   Multiple validation layers ensure correctness and prevent fraud.
 
-Workers then:
-1. Automatically fetch pending microtasks  
-2. Compute them using browser Web Workers  
-3. Save results back to job data  
-4. Earn points based on workload + benchmark score  
+6. **Reassembly**  
+   All validated outputs are recombined to generate the final result.
 
----
+7. **Reward System**  
+   Providers earn points based on computation completed.
 
-### **4. Job Completion**
-Once all microtasks return results:
-- EcoCompute merges them  
-- Marks job as complete  
-- Recruiter can download final JSON output  
+This model ensures fast, low-cost computation while leveraging global unused hardware.
 
 ---
 
-# ✨ Features
+## Features
 
-### 🟩 **Recruiter Features**
-- Create new computational jobs  
-- JSON / Text input support  
-- File upload support  
-- Separate Matrix A/B mode  
-- Real-time job management  
-- Microtask visualization  
-- Job logs & status tracking  
-- Download aggregated results  
+- **Decentralized Compute Sharing** – Utilize idle CPUs and GPUs from global contributors.  
+- **Smart Task Distribution** – Automated splitting and optimal assignment based on device performance.  
+- **Multi-Layer Verification** – Ensures accuracy, integrity, and protection against malicious results.  
+- **Provider Dashboard** – View performance metrics, completed tasks, and earned points.  
+- **Low-Cost Computational Power** – Far cheaper than traditional cloud GPU providers.  
+- **Energy-Efficient & Sustainable** – Uses devices that are already powered on, reducing waste.
 
 ---
 
-### 🟦 **Provider Features**
-- CPU benchmarking  
-- Battery-safety checks  
-- Worker pool (parallel Web Worker execution)  
-- Automatic task assignment  
-- Real-time logs  
-- A live points/rewards system  
-- Contribution history tracking  
+## Impact
+
+EcoCompute drives technological and environmental impact:
+
+- Affordable compute access for students, researchers, and startups  
+- Reduced dependency on energy-heavy data centers  
+- Increased lifespan and usefulness of older devices  
+- Lower carbon footprint and power consumption  
+- Democratization of computational power on a global scale  
 
 ---
 
-### 🟨 **Core System Features**
-- Fully decentralized — no backend  
-- Deterministic microtask generation  
-- Real-time job updates  
-- Robust localStorage job database  
-- Row-based distributed matrix multiplication  
-- Safe JSON serialization for results  
-- Result aggregation engine  
+## Scope
+
+The scope of EcoCompute includes:
+
+- Aggregating global idle CPU/GPU resources  
+- Building a distributed computation pipeline with splitting, distributing, validating, and merging  
+- Creating a compute marketplace where recruiters pay and providers earn  
+- Supporting cross-platform computation (Windows, Linux, macOS, and future mobile support)  
+- Implementing energy tracking and sustainability metrics  
+- Scaling to support thousands of concurrent providers and millions of tasks  
 
 ---
 
-# 🌍 Impact
+## Future Enhancements
 
-EcoCompute highlights how distributed computation can be:
+- Monetary rewards for providers (token/fiat-based)  
+- Blockchain integration for transparency and trusted payouts  
+- Mobile apps to allow Android/iOS devices to contribute  
+- AI-driven task allocation for better efficiency  
+- GPU clustering for high-performance parallel tasks  
+- Green computing badges and environmental impact tracking  
 
-### **Accessible**  
-Runs on any device with a browser — no downloads, no setup, no GPU required.
-
-### **Efficient**  
-Uses idle compute cycles on everyday devices.
-
-### **Educational**  
-Helps students understand:
-- Distributed computing  
-- Parallel processing  
-- Task scheduling  
-- Worker pools & microtasks  
-- Matrix multiplication workloads  
-
-### **Scalable (in the future)**  
-Can evolve into a real compute marketplace for:
-- AI inference  
-- Image generation  
-- ML training  
-- Scientific simulation tasks  
-
-EcoCompute demonstrates the potential of **community-powered computing**, lowering reliance on centralized data centers.
 
 ---
 
-# 📌 Summary
+## Summary
 
-EcoCompute is:
-- A decentralized compute network  
-- Running entirely in the browser  
-- With recruiters creating tasks  
-- Providers computing microtasks  
-- Results aggregated automatically  
-- Zero backend required  
-- Fully transparent and extensible  
-- Equipped with rewards, statistics, and logs
+EcoCompute makes computation **cheaper, greener, and more accessible** by turning idle devices into a global compute network. It empowers users who need computational power and rewards those who share it, building a more sustainable and inclusive future for high-performance computing.
 
-This project showcases the power of JavaScript and browser APIs in building complex distributed systems.
 
----
-
-# 🔮 Future Plans
-
-EcoCompute is designed with expansion in mind. Upcoming enhancements may include:
-
-### 🔥 **1. WebGPU Support**
-- True GPU-based matrix multiplications  
-- ML inference  
-- Stable Diffusion–style workloads  
-
-### 🔗 **2. Blockchain Integration**
-- On-chain identity & reputation  
-- Tokenized rewards  
-- Secure task verification  
-- Decentralized compute marketplace  
-
-### 🗄️ **3. Backend + Cloud Sync**
-- Shared global job pool  
-- Multi-user environment  
-- Persistent storage for jobs & results  
-
-### 🛡️ **4. Verification & Security**
-- Redundant execution (R=2 or R=3)  
-- Result hashing  
-- Majority-validation consensus  
-
-### 🎖️ **5. Gamification**
-- Global leaderboard  
-- Achievements  
-- Social profiles  
-- Weekly competitions  
-
-### 📦 **6. Advanced Job Types**
-- Image convolutions  
-- Audio processing chunks  
-- Video frame microtasks  
-- AI model inference tiles  
-
-EcoCompute can grow into a **full decentralized compute marketplace** — powered by community devices, accessible from any browser.
 
 
 live website link - https://eco-compute.onrender.com
