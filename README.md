@@ -38,6 +38,13 @@ EcoCompute follows a distributed computing pipeline where large tasks are split,
 This enables fast, low-cost, and scalable distributed computation.
 
 ---
+##   Tech Stack
+
+1. **Nodejs**
+2. **Html/css/javascript**  
+3.  **used local storage of browser for protoryping**  
+
+---
 
 ## 🚀 Features
 
