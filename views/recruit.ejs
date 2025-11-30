@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoCompute — Requester (Create & Manage Jobs)</title>
+    <link rel="stylesheet" href="recruit.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container flex">
+
+            <div class="logo">ECOCOMPUTE</div>
+
+            <div style="margin-left:auto;color:var(--cream)">Requester · Create & Manage Jobs</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section class="welcome-section">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+                <div>
+                    <h2 style="margin-bottom:6px;color:var(--bg-navy)">Create distributed jobs — store payloads locally
+                    </h2>
+                    <div style="color:var(--bg-navy);opacity:.8;font-size:12px">Paste JSON or upload a file as the job
+                        input. Files are stored in browser memory (localStorage) as text/data-URL so you can preview on
+                        the user page.</div>
+                </div>
+                <div>
+                    <button class="btn-create-job" onclick="showJobForm()">+ CREATE NEW JOB</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Job Creation Form -->
+        <section id="jobForm" class="job-form-section">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <h3 style="color:var(--bg-navy)">New Job</h3>
+                <div>
+                    <button class="btn-submit" onclick="hideJobForm()">Close</button>
+                </div>
+            </div>
+
+            <form id="jobFormEl" onsubmit="createJob(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Job Title *</label>
+                        <input name="title" id="jobTitle" class="form-input" required placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Job Type *</label>
+                        <select name="type" id="jobType" class="form-select" required>
+                            <option value="image-processing">IMAGE PROCESSING</option>
+                            <option value="batch-compute">BATCH COMPUTE</option>
+                            <option value="monte-carlo">MONTE CARLO</option>
+                            <option value="custom">CUSTOM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description *</label>
+                    <textarea name="description" id="jobDescription" class="form-textarea" required
+                        placeholder="Describe your job"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Chunk size *</label>
+                        <input name="chunkSize" id="chunkSize" class="form-input" type="number" min="1" value="10"
+                            required oninput="calculateEstimate()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Redundancy *</label>
+                        <select name="redundancy" id="redundancy" class="form-select" required>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:8px;display:flex;gap:8px;align-items:center">
+                    <label style="font-size:12px;color:var(--bg-navy)">Input mode:</label>
+                    <label><input type="radio" name="inputMode" value="text" checked
+                            onchange="toggleInputMode(this.value)"> Paste JSON/Text</label>
+                    <label><input type="radio" name="inputMode" value="file" onchange="toggleInputMode(this.value)">
+                        Upload File</label>
+
+                    <label style="margin-left:20px;font-size:12px">
+                        <input type="checkbox" id="separateMatricesToggle" onchange="toggleSeparateMatrices()"> Separate
+                        matrices A &amp; B
+                    </label>
+                </div>
+
+                <!-- Text input (legacy single block) -->
+                <div id="textInputBlock" class="form-group full">
+                    <label class="form-label">Input Data (JSON / newline list)</label>
+                    <textarea id="inputData" class="form-textarea"
+                        placeholder='{"items":[1,2,3]} OR {"A":[...],"B":[...]}'
+                        oninput="calculateEstimate()"></textarea>
+                    <div style="margin-top:6px;font-size:12px;color:gray">
+                        Hint: For matrix multiply you can paste {"A":[...],"B":[...]} here or use the separate A & B
+                        fields.
+                    </div>
+                </div>
+
+                <!-- Separate Matrices block (hidden by default) -->
+                <div id="separateMatricesBlock" class="form-group full"
+                    style="display:none;flex-direction:column;gap:6px">
+                    <label class="form-label">Matrix A (JSON array of rows)</label>
+                    <textarea id="matrixAInput" class="form-textarea" placeholder='[[1,2,3],[4,5,6],...]'
+                        oninput="calculateEstimate()"></textarea>
+
+                    <label class="form-label">Matrix B (JSON array of rows)</label>
+                    <textarea id="matrixBInput" class="form-textarea" placeholder='[[7,8],[9,10],[11,12],...]'
+                        oninput="calculateEstimate()"></textarea>
+
+                    <div style="font-size:12px;color:gray">Tip: A should be M×K and B should be K×N to compute C = A × B
+                        (result M×N).</div>
+                </div>
+
+                <!-- File input -->
+                <div id="fileInputBlock" class="form-group full" style="display:none">
+                    <label class="form-label">Upload File (JSON / image / text)</label>
+                    <input id="fileInput" type="file" class="form-input" accept=".json,text/*,image/*"
+                        onchange="handleFileSelect(event)">
+                    <div id="fileInfo" style="margin-top:8px;font-size:12px;color:var(--bg-navy)"></div>
+                </div>
+
+                <div id="estimateBox" class="estimate-box" style="display:none">Estimated micro-tasks: <strong
+                        id="estimateValue">0</strong></div>
+
+                <div class="form-row" style="margin-top:10px">
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select id="priority" class="form-select">
+                            <option value="low">LOW</option>
+                            <option value="normal" selected>NORMAL</option>
+                            <option value="high">HIGH</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Budget (optional)</label>
+                        <input id="budget" class="form-input" type="number" min="0" placeholder="100">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Save Job</button>
+                    <button type="button" class="btn-demo" onclick="generateDemo()">Generate Demo</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Job List -->
+        <section class="job-list-section">
+            <h3 style="margin-bottom:12px">Your Jobs</h3>
+            <div id="jobList"></div>
+        </section>
+
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Job Preview</h3>
+                    <div id="modalMeta" style="font-size:12px;color:var(--bg-navy);opacity:.8"></div>
+                </div>
+                <div>
+                    <button class="btn-action" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+
+            <div class="detail-grid" id="modalDetails"></div>
+
+            <div style="margin-bottom:12px">
+                <div class="detail-label">Input Preview</div>
+                <div id="inputPreviewArea"></div>
+            </div>
+
+            <!-- Microtasks table -->
+            <div style="margin-bottom:12px">
+                <div class="detail-label">Microtasks</div>
+                <div style="overflow:auto;max-height:260px">
+                    <table class="microtask-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>STATUS</th>
+                                <th>ASSIGNED TO</th>
+                                <th>TIME</th>
+                                <th>RESULT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="microtaskBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px">
+                <div class="detail-label">Result / Logs</div>
+                <div id="resultBox" class="result-box">No results yet</div>
+                <div id="logContainer" style="margin-top:8px"></div>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:8px">
+                <button class="btn-action" onclick="downloadJob()">Download Job JSON</button>
+                <button class="btn-action btn-delete" onclick="deleteCurrentJob()">Delete Job</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="recruit.js"></script>
+</body>
+
+</html>

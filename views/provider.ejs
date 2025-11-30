@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoCompute — Provider Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --cream: #f4e8d0;
+            --bg-navy: #1a1d3a;
+            --cyan: #5ce1e6;
+            --pink-red: #ff6b7a;
+            --purple: #8b7fc7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: var(--cream);
+            color: var(--bg-navy);
+            padding: 18px
+        }
+
+        .header {
+            background: var(--bg-navy);
+            color: var(--cream);
+            padding: 16px;
+            border-bottom: 4px solid var(--purple);
+            margin-bottom: 12px
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        .card {
+            background: white;
+            border: 4px solid var(--purple);
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 8px 8px 0 var(--cyan)
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .muted {
+            font-size: 11px;
+            color: rgba(26, 29, 58, 0.7)
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px 14px;
+            border: 4px solid var(--purple);
+            background: var(--pink-red);
+            color: var(--cream)
+        }
+
+        .btn-neutral {
+            background: var(--cyan);
+            color: var(--bg-navy)
+        }
+
+        .small {
+            font-size: 12px
+        }
+
+        pre.log {
+            height: 160px;
+            overflow: auto;
+            background: #111;
+            color: #bfe;
+            padding: 8px;
+            border-radius: 6px
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 8px
+        }
+
+        .stat {
+            background: var(--cream);
+            border: 3px solid var(--cyan);
+            padding: 10px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 2px solid var(--cyan);
+            font-size: 12px
+        }
+
+        th {
+            background: var(--bg-navy);
+            color: var(--cream)
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: var(--cyan);
+            color: var(--bg-navy);
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+            <div>ECOCOMPUTE — Provider</div>
+            <div class="muted">Share idle compute · Local demo</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Device & controls -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                <div>
+                    <div class="small">Device ID</div>
+                    <div id="deviceId" style="font-size:14px"></div>
+                </div>
+
+                <div class="stat-grid" style="flex:1">
+                    <div class="stat">
+                        <div class="small">Cores</div>
+                        <div id="cores" style="font-weight:700"></div>
+                    </div>
+                    <div class="stat">
+                        <div class="small">Battery</div>
+                        <div id="battery" style="font-weight:700"></div>
+                    </div>
+                    <div class="stat">
+                        <div class="small">Charging</div>
+                        <div id="charging" style="font-weight:700"></div>
+                    </div>
+                    <div class="stat">
+                        <div class="small">Score (bench)</div>
+                        <div id="score" style="font-weight:700"></div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:8px">
+                    <button id="toggleShare">Start Sharing</button>
+                    <button id="runBench" class="btn-neutral">Run Benchmark</button>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <label class="small">Require charging <input id="requireCharging" type="checkbox" checked></label>
+                <label class="small">Min battery % <input id="minBattery" type="number" value="40"
+                        style="width:68px"></label>
+                <div class="muted">Dispatch loop runs automatically when sharing is ON.</div>
+            </div>
+        </div>
+
+        <!-- Live stats & jobs -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                    <div style="font-size:14px">Live Stats</div>
+                    <div class="muted">Tasks assigned / running / completed</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <div class="pill" id="assignedCount">Assigned: 0</div>
+                    <div class="pill" id="runningCount">Running: 0</div>
+                    <div class="pill" id="completedCount">Done: 0</div>
+                </div>
+            </div>
+
+            <div style="margin-top:12px">
+                <div style="font-weight:700;margin-bottom:8px">Available jobs (from Requester)</div>
+                <table id="jobsTable">
+                    <thead>
+                        <tr>
+                            <th>Job</th>
+                            <th>Type</th>
+                            <th>Est chunks</th>
+                            <th>Created</th>
+                            <th>Pending</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jobsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Logs -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-weight:700">Provider Logs</div>
+                <div class="muted small">Events & assignment history</div>
+            </div>
+            <pre id="log" class="log">Ready.</pre>
+        </div>
+    </div>
+
+    <script src="provider.js"></script>
+</body>
+
+</html>

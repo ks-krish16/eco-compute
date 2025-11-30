@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoCompute</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+    <div class="star-deco star-1"></div>
+    <div class="star-deco star-2"></div>
+    <div class="star-deco star-3"></div>
+
+    <!-- SPLASH -->
+    <div id="splash" class="splash">
+        <div class="splash-content">
+            <div class="crt-monitor">
+                <div class="crt-screen">
+                    <div class="logo-pixel">ECO</div>
+                </div>
+                <div class="crt-base">
+                    <div class="crt-button"></div>
+                </div>
+            </div>
+            <div class="brand-text">COMPUTE</div>
+        </div>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div id="page" class="page">
+
+        <nav>
+            <div class="nav-content">
+                <div class="logo-small">ECOCOMPUTE</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <button class="btn-signup" id="signup" onclick="window.location.href='/signup'">Sign Up</button>
+                    <button class="btn-signup" id="welcomeName" onclick=logout() style="display: none;">Welcome ,
+                        Guest</button>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>SHARE COMPUTE.<br>EARN REWARDS.</h1>
+            <div class="hero-cta">
+                <button class="btn-primary" id="getStarted">Get
+                    Started</button>
+            </div>
+        </section>
+        <section class="mini-info">
+            <div class="mini-container">
+                <h2>WHAT WE DO</h2>
+                <p>EcoCompute turns unused browser power into tiny micro-tasks.</p>
+                <p>These tasks process AI, simulations, and research workloads securely.</p>
+                <p>You earn rewards automatically while your device stays in control.</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🖥️
+                </div>
+                <h3>BROWSER BASED</h3>
+                <p>un tasks directly in your browser. No downloads needed.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>PRIVATE</h3>
+                <p>data stays secure with cryptographic verification.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💰
+                </div>
+                <h3>EARN REWARDS</h3>
+                <p>et rewarded for sharing your idle compute power.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="home.js"></script>
+
+</body>
+
+</html>

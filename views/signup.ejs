@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoCompute — Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+
+    <div class="star-deco star-1"></div>
+    <div class="star-deco star-2"></div>
+    <div class="star-deco star-3"></div>
+    <div class="star-deco star-4"></div>
+
+    <div class="signup-container">
+        <div class="signup-box">
+            <div class="pixel-corner pixel-tl"></div>
+            <div class="pixel-corner pixel-tr"></div>
+            <div class="pixel-corner pixel-bl"></div>
+            <div class="pixel-corner pixel-br"></div>
+
+            <div class="signup-logo">
+                <div class="logo-text">ECOCOMPUTE</div>
+                <div class="logo-sub">DECENTRALIZED COMPUTING</div>
+            </div>
+
+            <h1 class="signup-title">CREATE ACCOUNT</h1>
+
+            <form class="signup-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input name="username" type="text" class="form-input" placeholder="ENTER USERNAME" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input name="email" type="email" class="form-input" placeholder="YOUR@EMAIL.COM" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input name="password" type="password" class="form-input" placeholder="CREATE PASSWORD" required>
+                </div>
+
+                <div class="role-selector">
+                    <label class="role-label">Select Your Role</label>
+                    <div class="role-options">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="provider" class="role-input" checked>
+                            <div class="role-card">
+                                <div class="role-icon">💻</div>
+                                <div class="role-name">PROVIDER</div>
+                                <div class="role-desc">Share compute power and earn rewards</div>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="requester" class="role-input">
+                            <div class="role-card">
+                                <div class="role-icon">🚀</div>
+                                <div class="role-name">REQUESTER</div>
+                                <div class="role-desc">Run tasks on network</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Sign Up</button>
+
+                <div class="form-footer">
+                    Already have an account? <a href="#">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="signup.js"></script>
+
+</body>
+
+</html>
