@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoCompute — Pricing Plans</title>
+    <link rel="stylesheet" href="subscription.css">
+</head>
+
+<body>
+
+    <div class="star-deco star-1"></div>
+    <div class="star-deco star-2"></div>
+    <div class="star-deco star-3"></div>
+    <div class="star-deco star-4"></div>
+    <div class="star-deco star-5"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">ECOCOMPUTE</div>
+            <a href="/recruit" class="btn-back">← BACK</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">CHOOSE YOUR PLAN</h1>
+            <p class="hero-subtitle">
+                Select the perfect plan for your computing needs. Scale up anytime as your requirements grow.
+            </p>
+        </section>
+
+        <!-- Pricing Grid -->
+        <div class="pricing-grid">
+
+            <!-- Free Plan -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Free Tier</h2>
+                    <div class="plan-price">
+                        <span class="price-currency">₹</span>0
+                    </div>
+                    <div class="plan-period">FOREVER FREE</div>
+                </div>
+
+                <div class="plan-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>3 job uses per day</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Basic compute tasks</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Community support</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Standard processing speed</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Basic analytics dashboard</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✗</span>
+                        <span>No priority support</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✗</span>
+                        <span>No API access</span>
+                    </div>
+
+                    <div class="feature-highlight">
+                        Perfect for testing and small projects
+                    </div>
+                </div>
+
+                <button class="btn-select free" onclick="selectPlan('free')">START FREE</button>
+            </div>
+
+            <!-- Pro Plan (Popular) -->
+            <div class="plan-card popular">
+                <div class="popular-badge">★ POPULAR ★</div>
+
+                <div class="plan-header">
+                    <h2 class="plan-name">Pro Plan</h2>
+                    <div class="plan-price">
+                        <span class="price-currency">₹</span>1500
+                    </div>
+                    <div class="plan-period">PER MONTH</div>
+                </div>
+
+                <div class="plan-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>15 job uses per day</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>All job types supported</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Priority job queue</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Email support (24h response)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Advanced analytics</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Custom chunk sizes</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Higher redundancy options</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Export job results</span>
+                    </div>
+
+                    <div class="feature-highlight">
+                        Best value for growing teams and regular users
+                    </div>
+                </div>
+
+                <button class="btn-select popular" onclick="selectPlan('pro')">GET PRO</button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Enterprise</h2>
+                    <div class="plan-price">
+                        <span class="price-currency">₹</span>5000
+                    </div>
+                    <div class="plan-period">PER MONTH</div>
+                </div>
+
+                <div class="plan-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>35 job uses per day</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>All Pro features included</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Dedicated support team</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Priority 24/7 support</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Full API access with SDKs</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Custom integrations</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>SLA guarantees (99.9% uptime)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>White-label options</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Dedicated account manager</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Custom redundancy levels</span>
+                    </div>
+
+                    <div class="feature-highlight">
+                        For businesses requiring maximum reliability and premium support
+                    </div>
+                </div>
+
+                <button class="btn-select" onclick="selectPlan('enterprise')">GO ENTERPRISE</button>
+            </div>
+
+        </div>
+
+        <!-- Comparison Table -->
+        <section class="comparison-section">
+            <h2 class="comparison-title">FEATURE COMPARISON</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>FEATURE</th>
+                        <th>FREE</th>
+                        <th>PRO</th>
+                        <th>ENTERPRISE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Daily Job Uses</td>
+                        <td>3</td>
+                        <td>30</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>Job Types</td>
+                        <td>Basic</td>
+                        <td>All</td>
+                        <td>All + Custom</td>
+                    </tr>
+                    <tr>
+                        <td>Priority Queue</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>API Access</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Community</td>
+                        <td>Email (24h)</td>
+                        <td>24/7 Priority</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics</td>
+                        <td>Basic</td>
+                        <td>Advanced</td>
+                        <td>Advanced + Custom</td>
+                    </tr>
+                    <tr>
+                        <td>SLA</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td>99.9%</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Integration</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="faq-title">FREQUENTLY ASKED</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Can I upgrade my plan later?</div>
+                <div class="faq-answer">A: Yes! You can upgrade or downgrade your plan at any time. Changes take effect
+                    immediately and billing is prorated.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What happens if I exceed my daily limit?</div>
+                <div class="faq-answer">A: Jobs beyond your daily limit will be queued until the next day, or you can
+                    upgrade to a higher tier for immediate processing.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Do unused job credits roll over?</div>
+                <div class="faq-answer">A: Daily limits reset each day and don't roll over. However, Enterprise plans
+                    can request custom credit systems.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Is there a free trial for paid plans?</div>
+                <div class="faq-answer">A: Yes! All paid plans include a 7-day free trial. Cancel anytime before the
+                    trial ends with no charges.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What payment methods do you accept?</div>
+                <div class="faq-answer">A: We accept all major credit/debit cards, UPI, net banking, and for Enterprise
+                    plans, we offer invoice-based billing.</div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function selectPlan(planType) {
+            const plans = {
+                'free': 'Free Tier',
+                'pro': 'Pro Plan (₹500/month)',
+                'enterprise': 'Enterprise Plan (₹2000/month)'
+            };
+
+            alert(`You selected: ${plans[planType]}\n\nRedirecting to checkout...`);
+            // Here you would redirect to payment/checkout page
+            // window.location.href = `/checkout?plan=${planType}`;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,440 @@
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+  }
+
+  :root {
+      --cream: #f4e8d0;
+      --bg-navy: #1a1d3a;
+      --cyan: #5ce1e6;
+      --pink-red: #ff6b7a;
+      --purple: #8b7fc7;
+      --yellow: #ffd966;
+  }
+
+  html,
+  body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: var(--cream);
+      color: var(--bg-navy);
+      overflow-x: hidden;
+  }
+
+  /* Star decoration */
+  .star-deco {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--cyan);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0.3;
+      animation: twinkle 3s ease-in-out infinite;
+      z-index: 0;
+  }
+
+  .star-1 {
+      top: 100px;
+      left: 8%;
+  }
+
+  .star-2 {
+      top: 250px;
+      right: 12%;
+      animation-delay: 1s;
+  }
+
+  .star-3 {
+      bottom: 180px;
+      left: 15%;
+      animation-delay: 2s;
+  }
+
+  .star-4 {
+      top: 400px;
+      right: 20%;
+      animation-delay: 1.5s;
+  }
+
+  .star-5 {
+      bottom: 300px;
+      right: 8%;
+      animation-delay: 0.5s;
+  }
+
+  @keyframes twinkle {
+
+      0%,
+      100% {
+          opacity: 0.2;
+      }
+
+      50% {
+          opacity: 0.5;
+      }
+  }
+
+  /* Header */
+  .header {
+      background: var(--bg-navy);
+      border-bottom: 5px solid var(--purple);
+      box-shadow: 0 5px 0 var(--pink-red);
+      padding: 20px 30px;
+      margin-bottom: 8px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+  }
+
+  .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo {
+      font-size: 14px;
+      color: var(--cyan);
+      text-shadow: 2px 2px 0 var(--pink-red);
+  }
+
+  .btn-back {
+      padding: 8px 16px;
+      background: var(--cream);
+      border: 3px solid var(--cyan);
+      color: var(--bg-navy);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+  }
+
+  .btn-back:hover {
+      background: var(--cyan);
+  }
+
+  /* Container */
+  .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+      position: relative;
+      z-index: 1;
+  }
+
+  /* Hero Section */
+  .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+  }
+
+  .hero-title {
+      font-size: 24px;
+      color: var(--bg-navy);
+      text-shadow: 3px 3px 0 var(--cyan);
+      margin-bottom: 16px;
+  }
+
+  .hero-subtitle {
+      font-size: 10px;
+      color: var(--bg-navy);
+      opacity: 0.7;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+  }
+
+  /* Pricing Grid */
+  .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+  }
+
+  /* Plan Card */
+  .plan-card {
+      background: white;
+      border: 5px solid var(--cyan);
+      padding: 32px 28px;
+      box-shadow: 8px 8px 0 var(--purple);
+      position: relative;
+      transition: all 0.3s ease;
+  }
+
+  .plan-card.popular {
+      border-color: var(--pink-red);
+      box-shadow: 10px 10px 0 var(--pink-red);
+      transform: scale(1.05);
+  }
+
+  .plan-card::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 3px solid var(--pink-red);
+      pointer-events: none;
+  }
+
+  .plan-card.popular::before {
+      border-color: var(--purple);
+  }
+
+  .popular-badge {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      background: var(--pink-red);
+      border: 3px solid var(--purple);
+      color: var(--cream);
+      padding: 6px 12px;
+      font-size: 8px;
+      box-shadow: 3px 3px 0 var(--purple);
+  }
+
+  .plan-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--cyan);
+  }
+
+  .plan-name {
+      font-size: 16px;
+      color: var(--bg-navy);
+      text-shadow: 2px 2px 0 var(--cyan);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+  }
+
+  .plan-card.popular .plan-name {
+      text-shadow: 2px 2px 0 var(--pink-red);
+  }
+
+  .plan-price {
+      font-size: 28px;
+      color: var(--bg-navy);
+      margin-bottom: 8px;
+  }
+
+  .price-currency {
+      font-size: 16px;
+  }
+
+  .plan-period {
+      font-size: 9px;
+      color: var(--bg-navy);
+      opacity: 0.6;
+  }
+
+  .plan-features {
+      margin-bottom: 28px;
+  }
+
+  .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 9px;
+      line-height: 1.6;
+  }
+
+  .feature-icon {
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+  }
+
+  .feature-highlight {
+      background: var(--yellow);
+      border: 2px solid var(--bg-navy);
+      padding: 12px;
+      margin-top: 16px;
+      font-size: 8px;
+      line-height: 1.6;
+  }
+
+  .plan-card.popular .feature-highlight {
+      background: var(--cyan);
+  }
+
+  .btn-select {
+      width: 100%;
+      padding: 16px;
+      background: var(--pink-red);
+      border: 4px solid var(--purple);
+      color: var(--cream);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 6px 6px 0 var(--purple);
+      text-transform: uppercase;
+  }
+
+  .btn-select:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 3px 3px 0 var(--purple);
+  }
+
+  .btn-select:active {
+      transform: translate(6px, 6px);
+      box-shadow: 0 0 0 var(--purple);
+  }
+
+  .btn-select.free {
+      background: var(--cyan);
+      border-color: var(--bg-navy);
+      color: var(--bg-navy);
+      box-shadow: 6px 6px 0 var(--bg-navy);
+  }
+
+  .btn-select.free:hover {
+      box-shadow: 3px 3px 0 var(--bg-navy);
+  }
+
+  .btn-select.popular {
+      background: var(--purple);
+      border-color: var(--pink-red);
+      box-shadow: 6px 6px 0 var(--pink-red);
+  }
+
+  .btn-select.popular:hover {
+      box-shadow: 3px 3px 0 var(--pink-red);
+  }
+
+  /* FAQ Section */
+  .faq-section {
+      background: white;
+      border: 4px solid var(--purple);
+      padding: 32px;
+      box-shadow: 8px 8px 0 var(--cyan);
+      margin-top: 60px;
+  }
+
+  .faq-title {
+      font-size: 16px;
+      color: var(--bg-navy);
+      text-shadow: 2px 2px 0 var(--pink-red);
+      margin-bottom: 28px;
+      text-align: center;
+  }
+
+  .faq-item {
+      background: var(--cream);
+      border: 3px solid var(--cyan);
+      padding: 20px;
+      margin-bottom: 16px;
+  }
+
+  .faq-question {
+      font-size: 10px;
+      color: var(--bg-navy);
+      margin-bottom: 12px;
+  }
+
+  .faq-answer {
+      font-size: 9px;
+      color: var(--bg-navy);
+      opacity: 0.8;
+      line-height: 1.8;
+  }
+
+  /* Comparison Table */
+  .comparison-section {
+      margin-top: 60px;
+      background: white;
+      border: 4px solid var(--cyan);
+      padding: 32px;
+      box-shadow: 8px 8px 0 var(--purple);
+  }
+
+  .comparison-title {
+      font-size: 16px;
+      color: var(--bg-navy);
+      text-shadow: 2px 2px 0 var(--cyan);
+      margin-bottom: 28px;
+      text-align: center;
+  }
+
+  .comparison-table {
+      width: 100%;
+      border: 3px solid var(--purple);
+      border-collapse: collapse;
+      font-size: 9px;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+      padding: 14px;
+      border: 2px solid var(--cyan);
+      text-align: center;
+  }
+
+  .comparison-table th {
+      background: var(--bg-navy);
+      color: var(--cream);
+      text-transform: uppercase;
+      font-size: 9px;
+  }
+
+  .comparison-table td {
+      background: var(--cream);
+  }
+
+  .check {
+      color: var(--cyan);
+      font-size: 14px;
+  }
+
+  .cross {
+      color: var(--pink-red);
+      font-size: 14px;
+  }
+
+  /* Responsive */
+  @media (max-width:768px) {
+      .container {
+          padding: 30px 20px 60px;
+      }
+
+      .pricing-grid {
+          grid-template-columns: 1fr;
+      }
+
+      .plan-card.popular {
+          transform: scale(1);
+      }
+
+      .hero-title {
+          font-size: 18px;
+      }
+
+      .comparison-table {
+          font-size: 8px;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+          padding: 10px 6px;
+      }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+      * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+      }
+  }

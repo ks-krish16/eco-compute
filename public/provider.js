@@ -45,6 +45,119 @@ let sharingOn = false;
 let dispatchInterval = null;
 let processedCount = 0;
 
+/* -----------------------
+   Points system
+   ----------------------- */
+
+
+// read provider profile from localStorage (per device)
+function loadProviderProfile() {
+    const p = JSON.parse(localStorage.getItem(PROVIDER_KEY) || '{}');
+    // default profile
+    return Object.assign({
+        deviceId: deviceId || (localStorage.getItem('eco_device_id') || 'unknown'),
+        totalPoints: 0,
+        contributions: [], // { jobId, taskId, points, timeTaken, benchmarkScore, at }
+        lastUpdated: null
+    }, p);
+}
+
+function saveProviderProfile(profile) {
+    profile.lastUpdated = new Date().toISOString();
+    localStorage.setItem(PROVIDER_KEY, JSON.stringify(profile));
+    updatePointsUI(profile.totalPoints);
+}
+
+// update visible points on UI
+function updatePointsUI(points) {
+    const el = document.getElementById('pointsTotal');
+    if (el) el.innerText = Number(points || 0);
+}
+
+// compute points for a completed microtask
+// simple algorithm: base points per microtask + size-based bonus + speed/benchmark multiplier
+function computePointsForTask(payload, timeTakenMs) {
+    // base:
+    let base = 10;
+
+    // if payload is an array, give 1 point per item up to a cap
+    if (Array.isArray(payload)) {
+        base += Math.min(50, payload.length);
+    } else if (payload && payload.A_row) {
+        // matrix-row: reward by row length (K)
+        base += Math.min(50, payload.A_row.length || 0);
+    } else if (payload && payload.items && Array.isArray(payload.items)) {
+        base += Math.min(50, payload.items.length);
+    }
+
+    // speed bonus: faster runs yield slight bonus
+    if (typeof timeTakenMs === 'number' && timeTakenMs > 0) {
+        const speedBonus = Math.max(0, Math.round(10 * (1000 / (timeTakenMs + 500)))); // heuristic
+        base += Math.min(20, speedBonus);
+    }
+
+    // benchmark multiplier (if user ran bench): higher bench gives more multiplier
+    const benchEl = document.getElementById('score');
+    const benchScore = benchEl ? parseInt(benchEl.innerText) || 0 : 0;
+    const multiplier = 1 + Math.min(1.0, benchScore / 500); // benchScore 0..500 -> 0..1 multiplier
+    const points = Math.max(1, Math.round(base * multiplier));
+
+    return { points, base, benchScore, multiplier };
+}
+
+// award points after a microtask completed
+function awardPointsToProvider(jobId, taskId, payload, timeTakenMs) {
+    try {
+        const profile = loadProviderProfile();
+        const info = computePointsForTask(payload, timeTakenMs);
+        const rec = {
+            jobId: jobId,
+            taskId: taskId,
+            points: info.points,
+            base: info.base,
+            benchmarkScore: info.benchScore,
+            multiplier: info.multiplier,
+            timeTakenMs: timeTakenMs || null,
+            at: new Date().toISOString()
+        };
+        profile.contributions = profile.contributions || [];
+        profile.contributions.push(rec);
+        profile.totalPoints = (profile.totalPoints || 0) + info.points;
+        saveProviderProfile(profile);
+
+        log(`Awarded ${info.points} pts for ${taskId} (job ${jobId})`);
+        return rec;
+    } catch (e) {
+        console.error('awardPointsToProvider error', e);
+        return null;
+    }
+}
+
+/* Claim bonus button — example that gives a small one-time bonus when clicked */
+document.addEventListener('DOMContentLoaded', () => {
+    // show stored points in UI when page loads
+    const prof = loadProviderProfile();
+    updatePointsUI(prof.totalPoints);
+
+    const claimBtn = document.getElementById('claimBtn');
+    if (claimBtn) {
+        claimBtn.addEventListener('click', () => {
+            // simple anti-abuse: only allow claim if not claimed in last 24h
+            const p = loadProviderProfile();
+            const last = p.lastBonusClaimAt ? new Date(p.lastBonusClaimAt) : null;
+            const now = new Date();
+            if (last && (now - last) < (24 * 60 * 60 * 1000)) {
+                return alert('Bonus already claimed in last 24h');
+            }
+            p.totalPoints = (p.totalPoints || 0) + 20; // flat bonus
+            p.lastBonusClaimAt = now.toISOString();
+            saveProviderProfile(p);
+            alert('Bonus 20 points added!');
+        });
+    }
+});
+
+
 /* ================= BATTERY ================ */
 let batteryLevel = null;
 let charging = null;
